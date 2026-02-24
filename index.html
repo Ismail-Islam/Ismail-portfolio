@@ -1,0 +1,2437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ismail Islam — AI Automation Engineer</title>
+  <meta name="description" content="AI Automation Engineer & Agentic Trading Developer. Building n8n workflows, MQL5 EAs, and AI-powered systems." />
+  <meta name="theme-color" content="#0d0d1c" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:       #07070f;
+      --surface:  #0d0d1c;
+      --elevated: #13132a;
+      --border:   rgba(0,229,255,0.08);
+      --cyan:     #00e5ff;
+      --violet:   #7c3aed;
+      --text:     #eeeeff;
+      --muted:    #5a5a80;
+      --faint:    #1e1e38;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* ── Typography ── */
+    h1, h2, h3, h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 2.5rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(7,7,15,0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s ease;
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--cyan);
+      transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── Hero ── */
+    #about {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 2.5rem 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Shader canvas */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.5;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      touch-action: none;
+      filter: hue-rotate(155deg) saturate(1.4);
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero-eyebrow-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .hero-title .accent {
+      background: linear-gradient(135deg, var(--cyan) 0%, #7af4ff 50%, var(--violet) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      color: rgba(238,238,255,0.65);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    /* Skills chips */
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2.5rem;
+    }
+
+    .skill-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      padding: 5px 12px;
+      border-radius: 4px;
+      border: 1px solid var(--faint);
+      background: var(--surface);
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+
+    .skill-chip:hover {
+      border-color: rgba(0,229,255,0.3);
+      color: var(--cyan);
+      box-shadow: 0 0 12px rgba(0,229,255,0.08);
+    }
+
+    /* CTA buttons */
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--cyan);
+      color: var(--bg);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: -0.01em;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
+                  box-shadow 0.2s ease;
+      box-shadow: 0 0 0 rgba(0,229,255,0);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,229,255,0.3), 0 0 0 1px rgba(0,229,255,0.4);
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: -0.01em;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid var(--faint);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(0,229,255,0.3);
+      color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary:active { transform: translateY(0); }
+
+    /* ── Hero right panel ── */
+    .hero-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(0,229,255,0.04),
+        0 24px 64px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .hero-panel::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 20%; right: 20%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0.5;
+    }
+
+    .panel-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--faint);
+    }
+
+    .stat-item:last-child { border-bottom: none; }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--cyan);
+    }
+
+    /* Content creator badge */
+    .creator-badge {
+      margin-top: 1.5rem;
+      padding: 16px;
+      background: var(--faint);
+      border-radius: 10px;
+      border: 1px solid rgba(124,58,237,0.2);
+    }
+
+    .creator-badge-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .creator-badge-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .creator-badge-channels {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .channel-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: rgba(124,58,237,0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(124,58,237,0.25);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .channel-tag:hover {
+      background: rgba(124,58,237,0.3);
+      border-color: rgba(124,58,237,0.5);
+      color: #c4b5fd;
+    }
+
+    /* ── Fade-in animation ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in:nth-child(3) { animation-delay: 0.35s; }
+    .fade-in:nth-child(4) { animation-delay: 0.45s; }
+    .fade-in:nth-child(5) { animation-delay: 0.55s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Section wrapper ── */
+    section {
+      padding: 100px 2.5rem;
+    }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── About section ── */
+    #about-full {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-sidebar {
+      position: sticky;
+      top: 100px;
+    }
+
+    .about-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1rem;
+    }
+
+    .about-sidebar-title {
+      font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-sidebar-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 2rem;
+    }
+
+    .about-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .about-meta-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    .about-body {
+      padding-top: 0.25rem;
+    }
+
+    .about-body p {
+      font-size: 1.05rem;
+      color: rgba(238,238,255,0.75);
+      line-height: 1.85;
+    }
+
+    .about-divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+      margin: 2rem 0;
+    }
+
+    /* ── Scroll observer ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Section header ── */
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: rgba(238,238,255,0.6);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── Case Study ── */
+    #case-study {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .case-card {
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid rgba(0,229,255,0.18);
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 60px rgba(0,229,255,0.06),
+        0 40px 80px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .case-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent 5%, var(--cyan) 30%, #7af4ff 50%, var(--cyan) 70%, transparent 95%);
+      opacity: 0.5;
+    }
+
+    .case-header {
+      padding: 3rem 3rem 2rem;
+      border-bottom: 1px solid var(--faint);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .case-client {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    .case-title {
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 800;
+    }
+
+    .case-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .case-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 4px;
+      background: rgba(0,229,255,0.08);
+      color: var(--cyan);
+      border: 1px solid rgba(0,229,255,0.2);
+    }
+
+    .case-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .case-col {
+      padding: 2.5rem 3rem;
+    }
+
+    .case-col:first-child {
+      border-right: 1px solid var(--faint);
+    }
+
+    .case-col-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .case-col h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .case-col p {
+      font-size: 0.93rem;
+      color: rgba(238,238,255,0.65);
+      line-height: 1.75;
+    }
+
+    .case-how-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 0.5rem;
+    }
+
+    .case-how-list li {
+      display: flex;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: rgba(238,238,255,0.65);
+      line-height: 1.6;
+    }
+
+    .case-how-list li::before {
+      content: '→';
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .case-how-row {
+      padding: 0 3rem 2.5rem;
+      border-top: 1px solid var(--faint);
+    }
+
+    /* ── Trading ── */
+    #trading {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .subsection-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .subsection-label span {
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    .subsection-title {
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--elevated);
+      border: 1px solid var(--faint);
+      border-radius: 14px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .project-card:hover {
+      border-color: rgba(0,229,255,0.2);
+      box-shadow: 0 0 40px rgba(0,229,255,0.05), 0 20px 40px rgba(0,0,0,0.4);
+      transform: translateY(-3px);
+    }
+
+    .card-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .card-section {
+      margin-bottom: 0.9rem;
+    }
+
+    .card-section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.25rem;
+      opacity: 0.8;
+    }
+
+    .card-section-text {
+      font-size: 0.83rem;
+      color: rgba(238,238,255,0.6);
+      line-height: 1.65;
+    }
+
+    .card-img {
+      margin-top: 1.25rem;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--faint);
+      cursor: zoom-in;
+      position: relative;
+    }
+
+    .card-img img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .card-img:hover img {
+      transform: scale(1.03);
+    }
+
+    .card-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,7,15,0.6), transparent 50%);
+      display: flex;
+      align-items: flex-end;
+      padding: 10px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card-img:hover .card-img-overlay {
+      opacity: 1;
+    }
+
+    .card-img-hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+
+    /* Wide card for automations with 2 images */
+    .project-card-wide {
+      grid-column: span 3;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .card-wide-content {
+      grid-column: span 1;
+    }
+
+    .card-wide-images {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Trading divider */
+    .trading-divider {
+      margin: 3.5rem 0;
+      border: none;
+      border-top: 1px solid var(--faint);
+    }
+
+    /* Infra note */
+    .infra-note {
+      margin-top: 2.5rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(0,229,255,0.04);
+      border: 1px solid rgba(0,229,255,0.12);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      color: rgba(238,238,255,0.6);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .infra-note-icon {
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Automations ── */
+    #automations {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .automations-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-flow: dense;
+      gap: 20px;
+    }
+
+    .automation-card {
+      background: var(--surface);
+      border: 1px solid var(--faint);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .automation-card:hover {
+      border-color: rgba(124,58,237,0.3);
+      box-shadow: 0 0 40px rgba(124,58,237,0.06), 0 20px 40px rgba(0,0,0,0.4);
+      transform: translateY(-3px);
+    }
+
+    .automation-img {
+      width: 100%;
+      height: 160px;
+      overflow: hidden;
+      position: relative;
+      cursor: zoom-in;
+      background: var(--elevated);
+    }
+
+    .automation-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .automation-card:hover .automation-img img {
+      transform: scale(1.05);
+    }
+
+    .automation-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--elevated), var(--faint));
+    }
+
+    .automation-img-placeholder span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .automation-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .automation-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+      opacity: 0.5;
+    }
+
+    .automation-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .automation-section {
+      margin-bottom: 0.7rem;
+    }
+
+    .automation-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 0.2rem;
+    }
+
+    .automation-text {
+      font-size: 0.8rem;
+      color: rgba(238,238,255,0.55);
+      line-height: 1.6;
+    }
+
+    /* ── App ── */
+    #app {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .app-card {
+      background: var(--elevated);
+      border: 1px solid var(--faint);
+      border-radius: 20px;
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .app-platform-tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 1.25rem;
+    }
+
+    .app-platform-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 4px;
+      background: rgba(124,58,237,0.1);
+      color: #a78bfa;
+      border: 1px solid rgba(124,58,237,0.25);
+    }
+
+    .app-placeholder {
+      width: 100%;
+      height: 300px;
+      border-radius: 16px;
+      background: var(--faint);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .app-placeholder-icon {
+      font-size: 2.5rem;
+      opacity: 0.3;
+    }
+
+    .app-placeholder-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Video play overlay ── */
+    .video-play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(7,7,15,0);
+      transition: background 0.25s ease;
+    }
+    .video-play-overlay:hover {
+      background: rgba(7,7,15,0.5);
+    }
+    .video-play-btn {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(0,229,255,0.15);
+      border: 1.5px solid rgba(0,229,255,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22,1,0.36,1);
+    }
+    .video-play-overlay:hover .video-play-btn {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .video-play-overlay span {
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .video-play-overlay:hover span {
+      opacity: 1;
+    }
+
+    /* ── Content Creation ── */
+    #content {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .content-platform-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .platform-card {
+      background: var(--surface);
+      border: 1px solid var(--faint);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+    }
+
+    .platform-card:hover {
+      border-color: rgba(124,58,237,0.35);
+      box-shadow: 0 0 30px rgba(124,58,237,0.08);
+      transform: translateY(-2px);
+    }
+
+    .platform-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.3rem;
+    }
+
+    .platform-icon.yt { background: rgba(255,0,0,0.12); border: 1px solid rgba(255,0,0,0.2); }
+    .platform-icon.tt { background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.15); }
+
+    .platform-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .platform-handle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    .platform-arrow {
+      margin-left: auto;
+      color: var(--muted);
+      opacity: 0.4;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .platform-card:hover .platform-arrow {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+
+    /* ── Contact ── */
+    #contact {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding-bottom: 80px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 680px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 1.25rem 1.5rem;
+      background: var(--elevated);
+      border: 1px solid var(--faint);
+      border-radius: 12px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: rgba(0,229,255,0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,229,255,0.06);
+    }
+
+    .contact-link-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: var(--faint);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--cyan);
+    }
+
+    .contact-link-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-link-value {
+      font-size: 0.85rem;
+      color: var(--text);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .footer-bar {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--faint);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .footer-logo span { color: var(--cyan); }
+
+    .footer-copy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(7,7,15,0.92);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-img, .lightbox-video {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: var(--elevated);
+      border: 1px solid var(--faint);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .lightbox-close:hover { color: var(--text); border-color: var(--cyan); }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+  <nav>
+    <a href="#about" class="nav-logo">Ismail<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about-full">About</a></li>
+      <li><a href="#case-study">Case Study</a></li>
+      <li><a href="#trading">Trading</a></li>
+      <li><a href="#automations">Automations</a></li>
+      <li><a href="#app">App</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ HERO / ABOUT ══ -->
+  <section id="about">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-inner">
+
+      <!-- Left: text -->
+      <div>
+        <div class="hero-eyebrow fade-in">
+          <span class="hero-eyebrow-dot"></span>
+          <span class="hero-eyebrow-text">Open to freelance &amp; projects</span>
+        </div>
+
+        <h1 class="hero-title fade-in">
+          Ismail<br/>
+          <span class="accent">Islam</span>
+        </h1>
+
+        <p class="hero-subtitle fade-in">
+          AI Automation Engineer &amp; Agentic Trading Developer
+        </p>
+
+        <p class="hero-bio fade-in">
+          I build intelligent systems that work while you sleep — from custom MQL5 trading EAs
+          with broker-level security to end-to-end n8n automation pipelines powered by AI.
+          Self-hosted on my own VPS. Built from first principles.
+        </p>
+
+        <div class="skills-row fade-in">
+          <span class="skill-chip">n8n</span>
+          <span class="skill-chip">Claude Code</span>
+          <span class="skill-chip">Web Development</span>
+          <span class="skill-chip">App Development</span>
+          <span class="skill-chip">Supabase</span>
+          <span class="skill-chip">Google Cloud</span>
+          <span class="skill-chip">VPS / Networking</span>
+          <span class="skill-chip">RAG Pipelines</span>
+          <span class="skill-chip">VAPI</span>
+          <span class="skill-chip">ElevenLabs</span>
+          <span class="skill-chip">KIE</span>
+          <span class="skill-chip">Sora</span>
+          <span class="skill-chip">Veo</span>
+          <span class="skill-chip">Kling</span>
+          <span class="skill-chip">Creatomate</span>
+          <span class="skill-chip">PiAPI</span>
+          <span class="skill-chip">Pinecone</span>
+          <span class="skill-chip">Airtable</span>
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">JavaScript</span>
+          <span class="skill-chip">MQL5</span>
+          <span class="skill-chip">C#</span>
+          <span class="skill-chip" style="color: var(--cyan); border-color: rgba(0,229,255,0.2);">& more</span>
+        </div>
+
+        <div class="cta-row fade-in">
+          <a href="#case-study" class="btn-primary">
+            View Projects
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="btn-secondary">
+            Contact Me
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: stats panel -->
+      <div class="hero-panel fade-in">
+        <p class="panel-label">// overview</p>
+        <div class="stat-row">
+          <div class="stat-item">
+            <span class="stat-label">Trading EAs Built</span>
+            <span class="stat-value" data-count="20" data-suffix="+">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">AI Workflows</span>
+            <span class="stat-value" data-count="40">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Mobile Platforms</span>
+            <span class="stat-value" data-typewrite="iOS & Android"></span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Infrastructure</span>
+            <span class="stat-value" data-typewrite="VPS"></span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Primary Stack</span>
+            <span class="stat-value" data-typewrite="n8n · MQL5"></span>
+          </div>
+        </div>
+
+        <div class="creator-badge">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <img src="Me-AI.png" alt="Ismail Islam" style="width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:center 10%;border:2px solid rgba(124,58,237,0.4);flex-shrink:0;" />
+            <div>
+              <p class="creator-badge-title" style="margin-bottom:0;">E-Rank Trader</p>
+              <p style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:0.05em;">Content Creator</p>
+            </div>
+          </div>
+          <p class="creator-badge-sub">
+            Educational content making AI accessible — breaking down complex concepts for beginners.
+          </p>
+          <div class="creator-badge-channels">
+            <a href="https://www.youtube.com/@IsmailIslam100" target="_blank" rel="noopener" class="channel-tag">YouTube</a>
+            <a href="https://www.tiktok.com/@e_ranktrader" target="_blank" rel="noopener" class="channel-tag">TikTok</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ ABOUT ══ -->
+  <section id="about-full">
+    <div class="section-inner">
+      <div class="about-grid reveal">
+
+        <!-- Left: sticky sidebar -->
+        <div class="about-sidebar">
+          <p class="about-tag">// about me</p>
+          <h2 class="about-sidebar-title">The Story<br/>Behind the<br/><span style="color:var(--cyan)">Build</span></h2>
+          <div class="about-divider"></div>
+          <div class="about-sidebar-meta">
+            <div class="about-meta-item">
+              <span class="about-meta-dot"></span>
+              <span>Age 20 · Based in UK</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="about-meta-dot"></span>
+              <span>Self-taught developer</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="about-meta-dot"></span>
+              <span>Open to freelance</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="about-meta-dot"></span>
+              <span>Content creator · E-Rank Trader</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: full story -->
+        <div class="about-body">
+          <p>
+            I build systems that think, adapt, and execute. I started coding at 15, and from the beginning it was not easy. I struggled a lot, but that is exactly what built my foundation. Over the years, I developed everything from simple web pages to more complex, logic-driven projects like games, constantly pushing my ability to think and build.
+          </p>
+          <div class="about-divider"></div>
+          <p>
+            In 2024, discovering AI completely changed how I approach development — it accelerated my learning and unlocked a new level of creativity. By the following year, I began working with AI agents using Python, while also diving into trading and building Expert Advisors in MQL4 and MQL5 to automate strategies. That experience taught me both the power and limitations of traditional automation, which led me to where I am now, fully focused on AI automation.
+          </p>
+          <div class="about-divider"></div>
+          <p>
+            I have become deeply passionate about using AI to solve real problems — especially in trading where I specialise — but my skill set allows me to automate far beyond that. I am also committed to sharing what I learn, creating content to simplify AI concepts, because I believe understanding AI is no longer optional. It is essential for the future.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CASE STUDY ══ -->
+  <section id="case-study">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">// featured case study</p>
+        <h2 class="section-title">Built Something<br/><span style="color:var(--cyan)">That Didn't Exist</span></h2>
+        <p class="section-desc">How I delivered a fully custom, one-of-a-kind MQL5 indicator for Elite Traders Academy with no prior reference to work from, using Claude AI as a senior mentor to get it done.</p>
+      </div>
+
+      <div class="case-card reveal">
+        <div class="case-header">
+          <div>
+            <p class="case-client">// Client · Elite Traders Academy</p>
+            <h3 class="case-title">Custom Indicator EA<br/>with Broker-Lock Security</h3>
+          </div>
+          <div class="case-tags">
+            <span class="case-tag">MQL5</span>
+            <span class="case-tag">Security</span>
+            <span class="case-tag">Elite Traders Academy</span>
+          </div>
+        </div>
+
+        <div class="case-body">
+          <div class="case-col">
+            <p class="case-col-label">// the problem</p>
+            <h4>Unprecedented indicator. Unfamiliar language. Real deadline.</h4>
+            <p>Elite Traders Academy came to me with a request for a completely custom indicator — one that didn't exist anywhere on the internet. You couldn't Google it, find a reference, or reverse-engineer anything close to it. It was entirely unique to their methodology. On top of that, I was still early in my MQL5 journey at the time. This wasn't just a coding challenge, it was a problem-solving challenge from the ground up, with a real client waiting on the other end.</p>
+
+            <div style="height: 1.75rem;"></div>
+
+            <p class="case-col-label">// the solution</p>
+            <h4>Used Claude AI as a senior MQL5 mentor to close the gap.</h4>
+            <p>Rather than getting blocked, I leaned into AI as a mentor. I used Claude to walk me through the exact MQL5 concepts I needed to understand for this specific problem — not generic tutorials, but targeted explanations that helped me reason through an approach no one had taken before. Once I had the understanding, I built and delivered the full indicator with enterprise-grade security, shipping something real for a real client.</p>
+          </div>
+
+          <div class="case-col">
+            <p class="case-col-label">// how it works</p>
+            <h4>The indicator logic is classified. The security architecture isn't.</h4>
+            <ul class="case-how-list">
+              <li>
+                <div>
+                  <strong style="color:var(--text);font-size:0.88rem;">Proprietary indicator logic</strong> — The core indicator is built to Elite Traders Academy's exact methodology. The specifics are confidential and belong to the client — they don't exist anywhere else.
+                </div>
+              </li>
+              <li>
+                <div>
+                  <strong style="color:var(--text);font-size:0.88rem;">Broker-specific lock</strong> — On startup, the EA validates the broker environment. If the broker doesn't match the whitelisted value, the EA shuts down entirely — preventing use outside the intended ecosystem.
+                </div>
+              </li>
+              <li>
+                <div>
+                  <strong style="color:var(--text);font-size:0.88rem;">Account registration whitelist</strong> — Account numbers are embedded directly inside the compiled script. Only accounts that have been registered and approved can run the indicator. Any unrecognised account is denied immediately.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case-how-row">
+          <p class="case-col-label" style="margin-top:2.5rem;margin-bottom:1rem;">// outcome</p>
+          <div style="display:flex;gap:2rem;flex-wrap:wrap;">
+            <div style="background:var(--elevated);border:1px solid var(--faint);border-radius:10px;padding:1rem 1.5rem;min-width:160px;">
+              <p style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--cyan);">100%</p>
+              <p style="font-size:0.78rem;color:var(--muted);">Client requirements met</p>
+            </div>
+            <div style="background:var(--elevated);border:1px solid var(--faint);border-radius:10px;padding:1rem 1.5rem;min-width:160px;">
+              <p style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--cyan);">3-Layer</p>
+              <p style="font-size:0.78rem;color:var(--muted);">Security system built</p>
+            </div>
+            <div style="background:var(--elevated);border:1px solid var(--faint);border-radius:10px;padding:1rem 1.5rem;min-width:160px;">
+              <p style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--cyan);">MQL5</p>
+              <p style="font-size:0.78rem;color:var(--muted);">New language, learned on the job</p>
+            </div>
+            <div style="background:var(--elevated);border:1px solid var(--faint);border-radius:10px;padding:1rem 1.5rem;min-width:160px;">
+              <p style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--cyan);">Live</p>
+              <p style="font-size:0.78rem;color:var(--muted);">Deployed & in active use</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TRADING ══ -->
+  <section id="trading">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">// trading systems</p>
+        <h2 class="section-title">EAs & Trading<br/><span style="color:var(--cyan)">Automations</span></h2>
+        <p class="section-desc">Custom Expert Advisors that remove emotion from trading, plus AI-powered analysis pipelines running on my own infrastructure.</p>
+      </div>
+
+      <!-- MQL5 EAs -->
+      <div class="reveal">
+        <p class="subsection-label"><span></span> MQL5 Expert Advisors</p>
+        <div class="cards-grid">
+
+          <div class="project-card">
+            <p class="card-number">01 / EA</p>
+            <p class="card-title">Auto Break Even EA</p>
+            <div class="card-section">
+              <p class="card-section-label">Problem</p>
+              <p class="card-section-text">Manual trade management is stressful and emotionally driven — traders often miss the optimal moment to move SL to break even.</p>
+            </div>
+            <div class="card-section">
+              <p class="card-section-label">Solution</p>
+              <p class="card-section-text">An always-on EA that silently monitors all open positions and automatically moves the Stop Loss to break even the moment a defined profit threshold is reached.</p>
+            </div>
+            <div class="card-section">
+              <p class="card-section-label">How it works</p>
+              <p class="card-section-text">Continuously polls open trades. When floating P&amp;L hits the configured threshold (in pips or price), it modifies the SL to the entry price. Zero manual input required.</p>
+            </div>
+            <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--faint);">
+              <p style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#a78bfa;margin-bottom:0.6rem;">// Live Demo</p>
+              <div style="border-radius:6px;overflow:hidden;border:1px solid var(--faint);">
+                <video src="Zenkai.mkv" autoplay muted loop playsinline style="width:100%;max-height:220px;object-fit:cover;display:block;"></video>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <p class="card-number">02 / EA</p>
+            <p class="card-title">Auto Entry EA</p>
+            <div class="card-section">
+              <p class="card-section-label">Problem</p>
+              <p class="card-section-text">Revenge trading and FOMO cause impulsive, unplanned entries — the worst trades come from clicking in the heat of the moment.</p>
+            </div>
+            <div class="card-section">
+              <p class="card-section-label">Solution</p>
+              <p class="card-section-text">An EA that introduces a deliberate 10-second delay between setup and execution — breaking the impulse loop and enforcing disciplined entries.</p>
+            </div>
+            <div class="card-section">
+              <p class="card-section-label">How it works</p>
+              <p class="card-section-text">The trader configures entry parameters (lot size, SL, TP) in the input panel. After activating, the EA waits a fixed delay before executing — removing emotional impulse from the equation.</p>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <p class="card-number">03 / EA</p>
+            <p class="card-title">Setup Alert EA</p>
+            <div class="card-section">
+              <p class="card-section-label">Problem</p>
+              <p class="card-section-text">Manually watching charts for Elite Traders Academy-specific setups is time-consuming and easy to miss across multiple pairs and timeframes.</p>
+            </div>
+            <div class="card-section">
+              <p class="card-section-label">Solution</p>
+              <p class="card-section-text">A custom alert engine that scans for ETA's precise confluence conditions and fires an instant notification when a valid setup is detected.</p>
+            </div>
+            <div class="card-section">
+              <p class="card-section-label">How it works</p>
+              <p class="card-section-text">Runs on the chart at all times, checking for each condition in the ETA system on every tick. When all signals align simultaneously, it triggers a push alert and on-screen popup.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <hr class="trading-divider">
+
+      <!-- AI Trading Automations -->
+      <div class="reveal">
+        <p class="subsection-label"><span></span> AI Trading Automations · n8n</p>
+
+        <!-- Card 1: Telegram Signal Generator -->
+        <div style="margin-bottom:20px;">
+          <div class="project-card" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:100%;">
+            <div>
+              <p class="card-number">01 / AUTOMATION</p>
+              <p class="card-title">Telegram Signal Generator</p>
+              <div class="card-section">
+                <p class="card-section-label">Problem</p>
+                <p class="card-section-text">Manually composing and sending trading signals to Telegram is slow and inconsistent — quality degrades when you're also managing live trades.</p>
+              </div>
+              <div class="card-section">
+                <p class="card-section-label">Solution</p>
+                <p class="card-section-text">A fully automated n8n workflow that analyses market data, generates structured signal messages using AI, and posts directly to Telegram.</p>
+              </div>
+              <div class="card-section">
+                <p class="card-section-label">How it works</p>
+                <p class="card-section-text">Workflow triggers on schedule or webhook, pulls live market data, runs AI analysis to determine signal conditions, formats the message, and dispatches to the Telegram channel automatically.</p>
+              </div>
+            </div>
+            <div class="card-img" style="margin-top:0;" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="Telegram Signals Generator.png" alt="Telegram Signals Generator Workflow" loading="lazy" />
+              <div class="card-img-overlay"><span class="card-img-hint">click to expand</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Market Analysis Chat + Image Analysis -->
+        <div style="margin-bottom:20px;">
+          <div class="project-card" style="display:grid;grid-template-columns:1fr 2fr;gap:2rem;max-width:100%;align-items:start;">
+            <div>
+              <p class="card-number">02 / AUTOMATION</p>
+              <p class="card-title">Market Analysis Chat + Image Analysis</p>
+              <div class="card-section">
+                <p class="card-section-label">Problem</p>
+                <p class="card-section-text">Querying AI market analysis required jumping between separate tools — there was no single unified interface to interact with the full trading system.</p>
+              </div>
+              <div class="card-section">
+                <p class="card-section-label">Solution</p>
+                <p class="card-section-text">A custom chat frontend that acts as the central hub — connecting to both the Technical Analyst workflow and the Autonomous Trading System in one interface.</p>
+              </div>
+              <div class="card-section">
+                <p class="card-section-label">How it works</p>
+                <p class="card-section-text">The chat UI sends queries to n8n, which dispatches to the Market Analysis model. The frontend bridges both the Technical Analyst and Autonomous Trading workflows, streaming responses back with full context.</p>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+              <div class="card-img" style="margin-top:0;" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="Trading Chat model Connect Market Analysis Workflow.png" alt="Trading Chat Connect Workflow" loading="lazy" />
+                <div class="card-img-overlay"><span class="card-img-hint">click to expand</span></div>
+              </div>
+              <div class="card-img" style="margin-top:0;" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="Market Analysis Chat Model .png" alt="Market Analysis Chat Model" loading="lazy" />
+                <div class="card-img-overlay"><span class="card-img-hint">click to expand</span></div>
+              </div>
+              <div class="card-img" style="margin-top:0;" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="Market Image Analysis Workflow.png" alt="Market Image Analysis Workflow" loading="lazy" />
+                <div class="card-img-overlay"><span class="card-img-hint">click to expand</span></div>
+              </div>
+              <div class="card-img" style="margin-top:0;" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="My Trading Front end chat Picture.png" alt="Trading Frontend Chat Result" loading="lazy" />
+                <div class="card-img-overlay"><span class="card-img-hint">click to expand</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Technical Analyst Workflow (standalone) -->
+        <div style="margin-bottom:20px;">
+          <div class="project-card" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:100%;">
+            <div>
+              <p class="card-number">03 / AUTOMATION</p>
+              <p class="card-title">Technical Analyst Workflow</p>
+              <div class="card-section">
+                <p class="card-section-label">Problem</p>
+                <p class="card-section-text">Manual technical analysis is slow, inconsistent, and prone to bias — running it across multiple instruments and timeframes at scale isn't feasible without automation.</p>
+              </div>
+              <div class="card-section">
+                <p class="card-section-label">Solution</p>
+                <p class="card-section-text">A standalone n8n workflow that performs deep, structured technical analysis on any instrument — called by both the chat frontend and the autonomous system.</p>
+              </div>
+              <div class="card-section">
+                <p class="card-section-label">How it works</p>
+                <p class="card-section-text">Receives a symbol and timeframe, fetches live market data from the VPS, runs AI-driven analysis covering trend structure, key levels, and indicator confluence, then returns a structured report ready for decision-making.</p>
+              </div>
+            </div>
+            <div class="card-img" style="margin-top:0;" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="Technical Analyst Workflow.png" alt="Technical Analyst Workflow" loading="lazy" />
+              <div class="card-img-overlay"><span class="card-img-hint">click to expand</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Autonomous Trading System -->
+        <div style="margin-bottom:20px;">
+          <div class="project-card" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:100%;align-items:start;">
+            <div>
+              <p class="card-number">04 / AUTOMATION</p>
+              <p class="card-title">Autonomous AI Trading System</p>
+              <div class="card-section">
+                <p class="card-section-label">Problem</p>
+                <p class="card-section-text">Human traders can't monitor multiple markets simultaneously, analyse charts objectively in real time, and make decisions without fatigue or emotion.</p>
+              </div>
+              <div class="card-section">
+                <p class="card-section-label">Solution</p>
+                <p class="card-section-text">A multi-agent autonomous system that monitors markets, analyses chart screenshots with vision AI, and manages trade decisions end-to-end — also accessible through the chat frontend.</p>
+              </div>
+              <div class="card-section">
+                <p class="card-section-label">How it works</p>
+                <p class="card-section-text">Live market data flows in through the <strong style="color:var(--cyan);font-weight:600;">EA Vector Finance MT5 Market Data API</strong> — a custom EA that pipes real-time price, symbol, and OHLC data from MT5 directly into the workflow. When conditions align and a setup is confirmed via vision AI, trade execution is handled through the <strong style="color:var(--cyan);font-weight:600;">EA Vector Finance MT5 Orders API</strong> — another custom EA that gives the AI agents the ability to place, modify, and close live trades on MT5 programmatically. The whole system runs 24/7 on my VPS; the chat frontend connects directly into it for on-demand interaction.</p>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div class="card-img" style="margin-top:0;" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="AI Autonomous Agent Workflow.png" alt="AI Autonomous Agent Workflow" loading="lazy" />
+                <div class="card-img-overlay"><span class="card-img-hint">click to expand</span></div>
+              </div>
+              <div>
+                <p style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#a78bfa;margin-bottom:6px;">// Live Trading Data</p>
+                <div class="card-img" style="margin-top:0;" onclick="openLightbox(this.querySelector('img').src)">
+                  <img src="Trading Data Proof Image.png" alt="Live Trading Data Proof" loading="lazy" />
+                  <div class="card-img-overlay"><span class="card-img-hint">click to expand</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VPS Infrastructure Card -->
+        <div class="reveal">
+          <div class="project-card" style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;max-width:100%;align-items:center;border-color:rgba(0,229,255,0.2);box-shadow:0 0 60px rgba(0,229,255,0.04);">
+            <div>
+              <p class="card-number" style="opacity:1;color:var(--cyan);">// INFRASTRUCTURE</p>
+              <p class="card-title" style="font-size:1.25rem;margin-bottom:1.25rem;">Custom Trading VPS &amp; Data Platform</p>
+              <div class="card-section">
+                <p class="card-section-label">What I built</p>
+                <p class="card-section-text">Set up and configured my own VPS with public web access — serving as the backbone for all trading workflows. It stores and serves live market data, economic data, and API keys so every workflow can pull what it needs without relying on third-party cloud services.</p>
+              </div>
+              <div class="card-section">
+                <p class="card-section-label">The website</p>
+                <p class="card-section-text">Built a custom web dashboard hosted on the VPS so I can access my trading data, market feeds, and workflow status from anywhere. Full control, always on.</p>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.06em;padding:4px 10px;border-radius:4px;background:rgba(0,229,255,0.07);color:var(--cyan);border:1px solid rgba(0,229,255,0.18);">Self-Hosted VPS</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.06em;padding:4px 10px;border-radius:4px;background:rgba(0,229,255,0.07);color:var(--cyan);border:1px solid rgba(0,229,255,0.18);">Market Data API</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.06em;padding:4px 10px;border-radius:4px;background:rgba(0,229,255,0.07);color:var(--cyan);border:1px solid rgba(0,229,255,0.18);">Economic Data</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.06em;padding:4px 10px;border-radius:4px;background:rgba(0,229,255,0.07);color:var(--cyan);border:1px solid rgba(0,229,255,0.18);">Custom Dashboard</span>
+              </div>
+            </div>
+            <div class="card-img" style="margin-top:0;" onclick="openLightbox(this.querySelector('img').src)">
+              <img src="My Trading VPS Wesbsite Picture.png" alt="Trading VPS Website Dashboard" loading="lazy" style="border-radius:8px;" />
+              <div class="card-img-overlay"><span class="card-img-hint">click to expand</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ AI AUTOMATIONS ══ -->
+  <section id="automations">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">// ai automation workflows</p>
+        <h2 class="section-title">Built with n8n.<br/><span style="color:var(--violet)">Powered by AI.</span></h2>
+        <p class="section-desc">End-to-end automation pipelines covering sales, content, research, and business ops — all running on my own infrastructure.</p>
+      </div>
+
+      <div class="automations-grid reveal">
+
+        <!-- 1: Sales Agent -->
+        <div class="automation-card">
+          <div class="automation-img" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="Sales Agent Workflow.png" alt="Sales Agent Workflow" loading="lazy" />
+          </div>
+          <div class="automation-body">
+            <p class="automation-number">01 / n8n</p>
+            <p class="automation-title">Sales Agent + Lead Qualifier</p>
+            <div class="automation-section">
+              <p class="automation-label">Problem</p>
+              <p class="automation-text">Manual outreach is slow and unscalable. Qualifying leads one-by-one wastes time on prospects who'll never convert.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">Solution</p>
+              <p class="automation-text">An AI sales agent paired with a VAPI voice bot that automatically qualifies inbound leads, scores them, and routes hot prospects to the right pipeline stage.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">How it works</p>
+              <p class="automation-text">Leads trigger the workflow via webhook. The VAPI voice agent conducts an outbound qualification call, extracts intent signals, and the n8n workflow logs outcomes and fires follow-up sequences automatically.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2: Personal AI Newsletter -->
+        <div class="automation-card">
+          <div class="automation-img" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="Personal Newsletter Workflow.png" alt="Personal Newsletter Workflow" loading="lazy" />
+          </div>
+          <div class="automation-body">
+            <p class="automation-number">02 / n8n</p>
+            <p class="automation-title">Personal AI Newsletter</p>
+            <div class="automation-section">
+              <p class="automation-label">Problem</p>
+              <p class="automation-text">I'm a content creator who doesn't use social media. No TikTok, Instagram, Snapchat — none of it. I know how distracting and unproductive it is, so I cut it out entirely. But I still needed to stay on top of everything happening in AI without spending hours hunting for it manually.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">Solution</p>
+              <p class="automation-text">Built a fully personalised AI newsletter that completely replaces what social media would have given me — but with zero noise. Tailored to exactly what I care about, delivered on schedule, nothing irrelevant.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">How it works</p>
+              <p class="automation-text">Runs on a cron schedule, pulls from configured AI and tech sources, summarises with AI, formats into a clean newsletter edition, and delivers directly to my inbox. Always informed, always productive.</p>
+            </div>
+            <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--faint);">
+              <p style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#a78bfa;margin-bottom:0.6rem;">// Results</p>
+              <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;scrollbar-color:var(--faint) transparent;">
+                <img src="Personal Newsletter Result 1.png" onclick="openLightbox(this.src)" loading="lazy" style="height:90px;width:auto;border-radius:6px;border:1px solid var(--faint);cursor:zoom-in;flex-shrink:0;transition:transform 0.25s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.04)';this.style.borderColor='rgba(167,139,250,0.4)'" onmouseout="this.style.transform='scale(1)';this.style.borderColor='var(--faint)'" />
+                <img src="Personal Newsletter Result 2.png" onclick="openLightbox(this.src)" loading="lazy" style="height:90px;width:auto;border-radius:6px;border:1px solid var(--faint);cursor:zoom-in;flex-shrink:0;transition:transform 0.25s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.04)';this.style.borderColor='rgba(167,139,250,0.4)'" onmouseout="this.style.transform='scale(1)';this.style.borderColor='var(--faint)'" />
+                <img src="Personal Newsletter Result 3.png" onclick="openLightbox(this.src)" loading="lazy" style="height:90px;width:auto;border-radius:6px;border:1px solid var(--faint);cursor:zoom-in;flex-shrink:0;transition:transform 0.25s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.04)';this.style.borderColor='rgba(167,139,250,0.4)'" onmouseout="this.style.transform='scale(1)';this.style.borderColor='var(--faint)'" />
+                <img src="Personal Newsletter Result 4.png" onclick="openLightbox(this.src)" loading="lazy" style="height:90px;width:auto;border-radius:6px;border:1px solid var(--faint);cursor:zoom-in;flex-shrink:0;transition:transform 0.25s,border-color 0.2s;" onmouseover="this.style.transform='scale(1.04)';this.style.borderColor='rgba(167,139,250,0.4)'" onmouseout="this.style.transform='scale(1)';this.style.borderColor='var(--faint)'" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3: Personal Inbox Manager -->
+        <div class="automation-card">
+          <div class="automation-img" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="Personal Inbox Manager Workflow.png" alt="Personal Inbox Manager Workflow" loading="lazy" />
+          </div>
+          <div class="automation-body">
+            <p class="automation-number">03 / n8n</p>
+            <p class="automation-title">Personal Inbox Manager</p>
+            <div class="automation-section">
+              <p class="automation-label">Problem</p>
+              <p class="automation-text">Email overload kills focus. Triaging, categorising, and drafting replies to dozens of emails daily is a cognitive drain.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">Solution</p>
+              <p class="automation-text">An AI agent that monitors the inbox, classifies each email by urgency and category, drafts responses for approval, and handles routine replies autonomously.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">How it works</p>
+              <p class="automation-text">New emails trigger the workflow. AI classifies intent and priority, generates a context-aware draft, and either sends automatically for low-stakes emails or surfaces the draft for review.</p>
+            </div>
+            <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--faint);">
+              <p style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#a78bfa;margin-bottom:0.6rem;">// Result</p>
+              <div style="border-radius:6px;overflow:hidden;border:1px solid var(--faint);cursor:zoom-in;transition:border-color 0.2s;" onclick="openLightbox(this.querySelector('img').src)" onmouseover="this.style.borderColor='rgba(167,139,250,0.4)'" onmouseout="this.style.borderColor='var(--faint)'">
+                <img src="Personal Inbox Manager Result.png" alt="Personal Inbox Manager Result" loading="lazy" style="width:100%;display:block;transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4: RAG Agent -->
+        <div class="automation-card">
+          <div class="automation-img" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="RAG Agent SupaBase Worflow.png" alt="RAG Agent Supabase Workflow" loading="lazy" />
+          </div>
+          <div class="automation-body">
+            <p class="automation-number">04 / n8n</p>
+            <p class="automation-title">RAG Agent · Google Drive + Supabase</p>
+            <div class="automation-section">
+              <p class="automation-label">Problem</p>
+              <p class="automation-text">Finding specific information across hundreds of documents requires manual searching — slow, error-prone, and scales badly.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">Solution</p>
+              <p class="automation-text">A retrieval-augmented generation agent that ingests Google Drive documents into Supabase vector store and answers natural language queries with source citations.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">How it works</p>
+              <p class="automation-text">Documents are chunked and embedded into Supabase pgvector. When queried, the agent retrieves semantically relevant chunks and synthesises a grounded answer — no hallucination, always sourced.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5: YouTube Shorts Generator -->
+        <div class="automation-card">
+          <div class="automation-img" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="YouTube Shorts Generator Workflow.png" alt="YouTube Shorts Generator Workflow" loading="lazy" />
+          </div>
+          <div class="automation-body">
+            <p class="automation-number">05 / n8n</p>
+            <p class="automation-title">YouTube Shorts Generator</p>
+            <div class="automation-section">
+              <p class="automation-label">Problem</p>
+              <p class="automation-text">Producing consistent short-form video content is time-intensive — scripting, editing, and publishing daily is unsustainable manually.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">Solution</p>
+              <p class="automation-text">An end-to-end pipeline that generates scripts, produces voiceovers via ElevenLabs, assembles video assets, and schedules YouTube Shorts for upload.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">How it works</p>
+              <p class="automation-text">Trigger fires on schedule or input topic. AI generates a short-form script, ElevenLabs synthesises audio, Creatomate assembles the video, and the workflow uploads directly to YouTube via API.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6: UGC Ads -->
+        <div class="automation-card">
+          <div class="automation-img" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="UGC Ads Veo & Sora Workflow.png" alt="UGC Ads Workflow" loading="lazy" />
+          </div>
+          <div class="automation-body">
+            <p class="automation-number">06 / n8n</p>
+            <p class="automation-title">UGC Ads · Veo &amp; Sora</p>
+            <div class="automation-section">
+              <p class="automation-label">Problem</p>
+              <p class="automation-text">Producing UGC-style ad creatives at scale requires actors, studios, and significant budget — out of reach for most brands.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">Solution</p>
+              <p class="automation-text">An AI video ad pipeline using Google Veo and OpenAI Sora to generate photorealistic UGC-style footage from prompts and assemble complete ad creatives.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">How it works</p>
+              <p class="automation-text">Script and product brief enter the workflow. AI generates scene prompts, Veo and Sora render video segments, assembly pipeline stitches clips with captions and music, outputting a finished ad.</p>
+            </div>
+            <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--faint);">
+              <p style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#a78bfa;margin-bottom:0.6rem;">// Demo Output</p>
+              <div style="display:flex;gap:6px;">
+                <div style="flex:1;border-radius:6px;overflow:hidden;border:1px solid var(--faint);position:relative;">
+                  <video src="Creatine Gummies Video.mp4" autoplay muted loop playsinline style="width:100%;height:90px;object-fit:cover;display:block;"></video>
+                  <span style="position:absolute;top:5px;left:6px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--cyan);background:rgba(7,7,15,0.75);padding:2px 6px;border-radius:3px;">01</span>
+                </div>
+                <div style="flex:1;border-radius:6px;overflow:hidden;border:1px solid var(--faint);position:relative;">
+                  <video src="creatine gummies 2.mp4" autoplay muted loop playsinline style="width:100%;height:90px;object-fit:cover;display:block;"></video>
+                  <span style="position:absolute;top:5px;left:6px;font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--cyan);background:rgba(7,7,15,0.75);padding:2px 6px;border-radius:3px;">02</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7: Invoice Processor -->
+        <div class="automation-card">
+          <div class="automation-img" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="Invoice.png" alt="Invoice Processor Workflow" loading="lazy" />
+          </div>
+          <div class="automation-body">
+            <p class="automation-number">07 / n8n</p>
+            <p class="automation-title">Invoice Processor</p>
+            <div class="automation-section">
+              <p class="automation-label">Problem</p>
+              <p class="automation-text">Manual invoice processing is repetitive, error-prone, and creates accounting bottlenecks — especially with high invoice volume.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">Solution</p>
+              <p class="automation-text">An AI document processing pipeline that extracts invoice data, validates fields, and pushes structured records into the appropriate accounting system automatically.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">How it works</p>
+              <p class="automation-text">Invoice arrives via email or upload trigger. AI vision model extracts vendor, amount, date, and line items. Workflow validates data integrity and posts to the accounting integration with zero manual touch.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8: Error Workflow -->
+        <div class="automation-card">
+          <div class="automation-img">
+            <div class="automation-img-placeholder">
+              <span>// No preview · Internal workflow</span>
+            </div>
+          </div>
+          <div class="automation-body">
+            <p class="automation-number">08 / n8n</p>
+            <p class="automation-title">Error Handler · Claude AI</p>
+            <div class="automation-section">
+              <p class="automation-label">Problem</p>
+              <p class="automation-text">n8n workflow failures generate cryptic errors that require manual debugging — halting automation pipelines and wasting diagnostic time.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">Solution</p>
+              <p class="automation-text">A meta-workflow that catches errors across all pipelines, feeds the error context to Claude AI, and returns a plain-English diagnosis and suggested fix.</p>
+            </div>
+            <div class="automation-section">
+              <p class="automation-label">How it works</p>
+              <p class="automation-text">n8n's built-in error trigger fires on any workflow failure. The error payload, node context, and execution trace are sent to Claude, which analyses the root cause and delivers a structured fix recommendation — removing guesswork from debugging.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ APP ══ -->
+  <section id="app">
+    <div class="section-inner">
+
+      <!-- ── Mobile App ── -->
+      <div class="reveal">
+        <p class="section-eyebrow">// mobile app</p>
+        <h2 class="section-title">Blocked by Apple.<br/><span style="color:var(--cyan)">Shipped on Android.</span></h2>
+      </div>
+
+      <div class="app-card reveal">
+        <div>
+          <p class="case-col-label">// the journey</p>
+          <h3 style="font-size:1.5rem;font-weight:800;margin-bottom:1rem;">Android Alarm App — Built With Claude Code</h3>
+          <div class="card-section" style="margin-bottom:1rem;">
+            <p class="card-section-label">The SwiftUI detour</p>
+            <p class="card-section-text">Spent nearly half a year learning SwiftUI and Xcode from scratch — only to hit Apple's platform restrictions at the finish line. The core functionality the app needed simply wasn't possible under Apple's rules. That was half a year gone.</p>
+          </div>
+          <div class="card-section" style="margin-bottom:1rem;">
+            <p class="card-section-label">The pivot to Android</p>
+            <p class="card-section-text">Switched to Android Studio and Kotlin — a completely different platform, a completely different language. The thought of starting the learning curve all over again from zero wasn't something I had time for. That's when I discovered Claude Code.</p>
+          </div>
+          <div class="card-section" style="margin-bottom:1rem;">
+            <p class="card-section-label">How Claude Code changed it</p>
+            <p class="card-section-text">Used Claude Code to navigate Android Studio, understand Kotlin patterns, and ship quickly. A large portion of the codebase was built with its help — letting me focus on what the app needed to do rather than fighting the tooling.</p>
+          </div>
+          <div class="card-section" style="margin-bottom:1.25rem;">
+            <p class="card-section-label">What it does</p>
+            <p class="card-section-text">A social alarm app built around competition and accountability. Features include gamification mechanics, social elements that let users compete with each other, and a layer of engagement that turns waking up into something worth showing up for.</p>
+          </div>
+          <div class="app-platform-tags">
+            <span class="app-platform-tag">Android</span>
+            <span class="app-platform-tag">Kotlin</span>
+            <span class="app-platform-tag">Claude Code</span>
+            <span class="app-platform-tag">SwiftUI + Xcode</span>
+          </div>
+        </div>
+
+        <div style="border-radius:12px;overflow:hidden;border:1px solid var(--faint);background:var(--elevated);position:relative;">
+          <p style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#a78bfa;padding:10px 14px 8px;border-bottom:1px solid var(--faint);">// app demo</p>
+          <div style="position:relative;cursor:pointer;" onclick="openVideoLightbox('WhatsApp Video 2026-02-24 at 15.53.44.mp4')">
+            <video src="WhatsApp Video 2026-02-24 at 15.53.44.mp4" autoplay muted loop playsinline style="width:100%;display:block;max-height:340px;object-fit:cover;" onloadedmetadata="this.currentTime=this.duration*0.5"></video>
+            <div class="video-play-overlay">
+              <div class="video-play-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="6,4 20,12 6,20"/></svg>
+              </div>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;color:rgba(255,255,255,0.85);margin-top:8px;">click to watch</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Game ── -->
+      <hr class="trading-divider" style="margin:3.5rem 0;">
+
+      <div class="reveal">
+        <p class="section-eyebrow">// game development</p>
+        <h2 class="section-title">7,000 Lines.<br/><span style="color:var(--cyan)">All by Hand.</span></h2>
+      </div>
+
+      <div class="app-card reveal">
+        <div>
+          <p class="case-col-label">// overview</p>
+          <h3 style="font-size:1.5rem;font-weight:800;margin-bottom:1rem;">Unity Game — Built Before AI Could Code</h3>
+          <div class="card-section" style="margin-bottom:1rem;">
+            <p class="card-section-label">What I built</p>
+            <p class="card-section-text">A fully developed game built in Unity using C# — designed, programmed, and shipped entirely from scratch. Every mechanic, every system, every line written by hand.</p>
+          </div>
+          <div class="card-section" style="margin-bottom:1rem;">
+            <p class="card-section-label">The context</p>
+            <p class="card-section-text">This was 2024, when LLMs still weren't capable enough to assist meaningfully with complex code. No AI to lean on, no shortcuts. Just raw problem-solving and persistence — over 100 hours of development and more than 7,000 lines of C# written personally.</p>
+          </div>
+          <div class="card-section" style="margin-bottom:1.25rem;">
+            <p class="card-section-label">Why it matters</p>
+            <p class="card-section-text">It proved I can build complex, structured software from first principles — a foundation that makes everything I build with AI tooling today even more effective.</p>
+          </div>
+          <div style="display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+            <div style="text-align:center;">
+              <p style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--cyan);line-height:1;">7,000+</p>
+              <p style="font-size:0.72rem;color:var(--muted);margin-top:4px;">lines of C#</p>
+            </div>
+            <div style="text-align:center;">
+              <p style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--cyan);line-height:1;">100+</p>
+              <p style="font-size:0.72rem;color:var(--muted);margin-top:4px;">hours of dev</p>
+            </div>
+          </div>
+          <div class="app-platform-tags">
+            <span class="app-platform-tag">Unity</span>
+            <span class="app-platform-tag">C#</span>
+            <span class="app-platform-tag">2024</span>
+            <span class="app-platform-tag">No AI Assistance</span>
+          </div>
+        </div>
+
+        <div style="border-radius:12px;overflow:hidden;border:1px solid var(--faint);background:var(--elevated);position:relative;">
+          <p style="font-family:'JetBrains Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#a78bfa;padding:10px 14px 8px;border-bottom:1px solid var(--faint);">// gameplay demo</p>
+          <div style="position:relative;cursor:pointer;" onclick="openVideoLightbox('Coursework video.mkv')">
+            <video src="Coursework video.mkv" autoplay muted loop playsinline style="width:100%;display:block;max-height:340px;object-fit:cover;" onloadedmetadata="this.currentTime=this.duration*0.5"></video>
+            <div class="video-play-overlay">
+              <div class="video-play-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="6,4 20,12 6,20"/></svg>
+              </div>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;color:rgba(255,255,255,0.85);margin-top:8px;">click to watch</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ CONTENT CREATION ══ -->
+  <section id="content">
+    <div class="section-inner">
+      <div class="content-grid reveal">
+        <div>
+          <p class="section-eyebrow">// content creation</p>
+          <h2 class="section-title">E-Rank<br/><span style="color:var(--violet)">Trader</span></h2>
+          <p style="font-size:1rem;color:rgba(238,238,255,0.65);line-height:1.8;margin-bottom:1.5rem;max-width:480px;">
+            I'm genuinely passionate about AI, but I also know how overwhelming it can feel when you're starting out. I was there too. Lost, not knowing where to begin, watching the space move faster than I could keep up with.
+          </p>
+          <p style="font-size:1rem;color:rgba(238,238,255,0.65);line-height:1.8;margin-bottom:1.5rem;max-width:480px;">
+            That's exactly why I started creating content. I wanted to be the resource I wish I had, breaking down AI concepts, automation tools, and agentic systems into clear, beginner-friendly material that actually makes sense.
+          </p>
+          <p style="font-size:0.9rem;color:rgba(238,238,255,0.5);line-height:1.75;max-width:480px;">
+            Understanding AI is no longer optional. My mission is to make sure no one has to figure it out alone, one video at a time.
+          </p>
+        </div>
+
+        <div>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">// find me on</p>
+          <div class="content-platform-cards">
+            <a href="https://www.youtube.com/@IsmailIslam100" target="_blank" rel="noopener" class="platform-card">
+              <div class="platform-icon yt">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </div>
+              <div>
+                <p class="platform-name">YouTube</p>
+                <p class="platform-handle">E-Rank Trader</p>
+              </div>
+              <svg class="platform-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+
+            <a href="https://www.tiktok.com/@e_ranktrader" target="_blank" rel="noopener" class="platform-card">
+              <div class="platform-icon tt">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+              </div>
+              <div>
+                <p class="platform-name">TikTok</p>
+                <p class="platform-handle">E-Rank Trader</p>
+              </div>
+              <svg class="platform-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">// get in touch</p>
+        <h2 class="section-title">Let's Build<br/><span style="color:var(--cyan)">Something.</span></h2>
+        <p class="section-desc">Open to freelance projects, automation commissions, and EA development. Reach out through any of the channels below.</p>
+      </div>
+
+      <div class="contact-grid reveal">
+        <a href="mailto:ismailislam1009@gmail.com" class="contact-link">
+          <div class="contact-link-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <p class="contact-link-label">Email</p>
+            <p class="contact-link-value">ismailislam1009@gmail.com</p>
+          </div>
+        </a>
+
+        <a href="https://linkedin.com/in/ismail-islam-45b830393" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-link-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div>
+            <p class="contact-link-label">LinkedIn</p>
+            <p class="contact-link-value">Ismail Islam</p>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/@IsmailIslam100" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-link-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <div>
+            <p class="contact-link-label">YouTube</p>
+            <p class="contact-link-value">E-Rank Trader</p>
+          </div>
+        </a>
+
+        <a href="https://www.tiktok.com/@e_ranktrader" target="_blank" rel="noopener" class="contact-link">
+          <div class="contact-link-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+          </div>
+          <div>
+            <p class="contact-link-label">TikTok</p>
+            <p class="contact-link-value">E-Rank Trader</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="footer-bar reveal">
+        <p class="footer-logo">Ismail<span>.</span></p>
+        <p class="footer-copy">© 2026 Ismail Islam · Built from first principles</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LIGHTBOX ══ -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Workflow preview" onclick="event.stopPropagation()" />
+    <video class="lightbox-video" id="lightbox-video" controls onclick="event.stopPropagation()" style="display:none;"></video>
+  </div>
+
+  <script>
+    // ── Overview stats animation ──
+    (function () {
+      function easeOutExpo(t) {
+        return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+      }
+
+      function countUp(el, target, suffix, duration, startDelay) {
+        setTimeout(() => {
+          const startTime = performance.now();
+          function tick(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = easeOutExpo(progress);
+            const current = Math.round(eased * target);
+            el.textContent = current + (suffix || '');
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }, startDelay);
+      }
+
+      function typewrite(el, text, charDelay, startDelay) {
+        setTimeout(() => {
+          el.textContent = '';
+          let i = 0;
+          const interval = setInterval(() => {
+            el.textContent += text[i];
+            i++;
+            if (i >= text.length) clearInterval(interval);
+          }, charDelay);
+        }, startDelay);
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        // Numbers count up from 0
+        document.querySelectorAll('[data-count]').forEach((el, idx) => {
+          const target = parseInt(el.dataset.count, 10);
+          const suffix = el.dataset.suffix || '';
+          countUp(el, target, suffix, 900, 150 + idx * 80);
+        });
+
+        // Text values type in character by character
+        document.querySelectorAll('[data-typewrite]').forEach((el, idx) => {
+          typewrite(el, el.dataset.typewrite, 28, 200 + idx * 90);
+        });
+      });
+    })();
+
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── Lightbox ──
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-img').style.display = 'block';
+      const vid = document.getElementById('lightbox-video');
+      vid.pause(); vid.src = ''; vid.style.display = 'none';
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function openVideoLightbox(src) {
+      const vid = document.getElementById('lightbox-video');
+      vid.src = src;
+      vid.style.display = 'block';
+      document.getElementById('lightbox-img').style.display = 'none';
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      vid.play();
+    }
+    function closeLightbox() {
+      const vid = document.getElementById('lightbox-video');
+      vid.pause(); vid.src = '';
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // ── WebGL Shader Background ──
+    (function () {
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+
+      const gl = canvas.getContext('webgl2');
+      if (!gl) return;
+
+      const vertSrc = `#version 300 es
+precision highp float;
+in vec4 position;
+void main(){gl_Position=position;}`;
+
+      const fragSrc = `#version 300 es
+precision highp float;
+out vec4 O;
+uniform vec2 resolution;
+uniform float time;
+uniform vec2 move;
+uniform vec2 touch;
+uniform int pointerCount;
+uniform vec2 pointers;
+#define FC gl_FragCoord.xy
+#define T time
+#define R resolution
+#define MN min(R.x,R.y)
+float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}
+float noise(in vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);float a=rnd(i),b=rnd(i+vec2(1,0)),c=rnd(i+vec2(0,1)),d=rnd(i+1.);return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}
+float fbm(vec2 p){float t=.0,a=1.;mat2 m=mat2(1.,-.5,.2,1.2);for(int i=0;i<5;i++){t+=a*noise(p);p*=2.*m;a*=.5;}return t;}
+float clouds(vec2 p){float d=1.,t=.0;for(float i=.0;i<3.;i++){float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);t=mix(t,d,a);d=a;p*=2./(i+1.);}return t;}
+void main(void){
+  vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);
+  vec3 col=vec3(0);
+  float bg=clouds(vec2(st.x+T*.5,-st.y));
+  uv*=1.-.3*(sin(T*.2)*.5+.5);
+  for(float i=1.;i<12.;i++){
+    uv+=.1*cos(i*vec2(.1+.01*i,.8)+i*i+T*.5+.1*uv.x);
+    vec2 p=uv;
+    float d=length(p);
+    col+=.00125/d*(cos(sin(i)*vec3(1,2,3))+1.);
+    float b=noise(i+p+bg*1.731);
+    col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
+    col=mix(col,vec3(bg*.25,bg*.137,bg*.05),d);
+  }
+  O=vec4(col,1);
+}`;
+
+      function compileShader(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src);
+        gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+          console.warn(gl.getShaderInfoLog(s));
+        }
+        return s;
+      }
+
+      const vs = compileShader(gl.VERTEX_SHADER, vertSrc);
+      const fs = compileShader(gl.FRAGMENT_SHADER, fragSrc);
+      const prog = gl.createProgram();
+      gl.attachShader(prog, vs);
+      gl.attachShader(prog, fs);
+      gl.linkProgram(prog);
+
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,-1,-1,1,1,1,-1]), gl.STATIC_DRAW);
+
+      const pos = gl.getAttribLocation(prog, 'position');
+      gl.enableVertexAttribArray(pos);
+      gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+      const uRes   = gl.getUniformLocation(prog, 'resolution');
+      const uTime  = gl.getUniformLocation(prog, 'time');
+      const uMove  = gl.getUniformLocation(prog, 'move');
+      const uTouch = gl.getUniformLocation(prog, 'touch');
+
+      let mouseX = 0, mouseY = 0;
+
+      function resize() {
+        const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
+        const hero = document.getElementById('about');
+        const w = hero.offsetWidth;
+        const h = hero.offsetHeight;
+        canvas.width  = w * dpr;
+        canvas.height = h * dpr;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+
+      document.getElementById('about').addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = (e.clientX - rect.left) / rect.width  * canvas.width;
+        mouseY = canvas.height - (e.clientY - rect.top) / rect.height * canvas.height;
+      });
+
+      function loop(now) {
+        gl.useProgram(prog);
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.uniform1f(uTime, now * 1e-3);
+        gl.uniform2f(uMove, 0, 0);
+        gl.uniform2f(uTouch, mouseX, mouseY);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        requestAnimationFrame(loop);
+      }
+
+      requestAnimationFrame(loop);
+    })();
+  </script>
+
+</body>
+</html>
