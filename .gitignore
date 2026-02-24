@@ -3,11 +3,5 @@ node_modules/
 .claude/
 .github-token
 push.mjs
-# Media assets (too large for GitHub)
-*.png
-*.jpg
-*.jpeg
-*.mp4
-*.mkv
-*.webm
-*.gif
+# Too large for GitHub (>100MB)
+Coursework video.mkv
